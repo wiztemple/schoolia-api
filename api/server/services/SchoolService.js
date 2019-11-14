@@ -1,12 +1,16 @@
 import database from '../src/models';
+import paginationMeta from '../utils/paginationMeta';
 
 class SchoolService {
-	static async getAllSchools() {
-		try {
-			return await database.School.findAll();
-		} catch (error) {
-			console.log(error);
-		}
+	static async getAllSchools(limit = 5, page = 1) {
+		const offset = limit * (page - 1);
+		const schoolRecords = await database.School.findAndCountAll({
+			limit,
+			offset,
+			order: [ [ 'createdAt', 'DESC' ] ]
+		});
+		schoolRecords.meta = paginationMeta(limit, page, schoolRecords.count);
+		return schoolRecords;
 	}
 	// static async addSchool(newSchool) {
 	// 	try {
@@ -33,17 +37,33 @@ class SchoolService {
 	// 	}
 	// }
 
-	// static async getASchool(id) {
-	// 	try {
-	// 		const school = await database.School.findOne({
-	// 			where: { id: Number(id) }
-	// 		});
+	static async getSchool(id) {
+		try {
+			const school = await database.School.findOne({
+				where: { id: Number(id) }
+			});
 
-	// 		return school;
-	// 	} catch (error) {
-	// 		throw error;
-	// 	}
-	// }
+			return school;
+		} catch (error) {
+			throw error;
+		}
+	}
+
+	/**
+* Finds an article by slug supplied
+* @param {string} slug Slug value
+* @returns {object | null} Article object or null if article is not found
+*/
+	static async getSchoolBySlug(slug) {
+		const school = await database.School.findOne({
+			where: { slug }
+		});
+
+		if (!school) {
+			return null;
+		}
+		return school;
+	}
 
 	// static async deleteSchool(id) {
 	// 	try {

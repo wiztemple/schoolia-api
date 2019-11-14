@@ -3,9 +3,9 @@ import SchoolController from '../controllers/SchoolController';
 
 const router = Router();
 
-router.get('/', SchoolController.getAllSchools);
+router.get('/schools', SchoolController.getAllSchools);
 // router.post('/', BookController.addBook);
-// router.get('/:id', BookController.getABook);
+router.get('/schools/:slug', SchoolController.getSchool);
 // router.put('/:id', BookController.updatedBook);
 // router.delete('/:id', BookController.deleteBook);
 

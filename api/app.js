@@ -3,6 +3,7 @@ import logger from 'volleyball';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import SchoolRoutes from './server/routes/SchoolRoutes';
+import AuthRoutes from './server/routes/AuthRoutes';
 
 const app = express();
 
@@ -17,7 +18,8 @@ app.use(cors());
 
 const port = process.env.PORT || 7000;
 
-app.use('/api/v1/schools', SchoolRoutes);
+app.use('/api/v1', SchoolRoutes);
+app.use('/api/v1', AuthRoutes);
 
 // when a random route is inputed
 app.get('*', (request, response) =>

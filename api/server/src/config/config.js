@@ -1,4 +1,6 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 module.exports = {
 	// If using onine database
@@ -7,11 +9,14 @@ module.exports = {
 	// },
 
 	development: {
-		database: 'schoolia',
-		username: 'postgres',
-		password: 'postgres',
-		host: '127.0.0.1',
-		dialect: 'postgres'
+		username: process.env.DB_USERNAME,
+		password: process.env.DB_PASSWORD,
+		database: process.env.DB_DATABASE_DEV,
+		host: process.env.DB_HOST,
+		port: process.env.DB_PORT,
+		PORT: 7000,
+		dialect: 'postgres',
+		secret: process.env.SECRET_KEY
 	},
 
 	test: {
