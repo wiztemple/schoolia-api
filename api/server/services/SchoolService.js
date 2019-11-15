@@ -12,30 +12,30 @@ class SchoolService {
 		schoolRecords.meta = paginationMeta(limit, page, schoolRecords.count);
 		return schoolRecords;
 	}
-	// static async addSchool(newSchool) {
-	// 	try {
-	// 		return await database.School.create(newSchool);
-	// 	} catch (error) {
-	// 		throw error;
-	// 	}
-	// }
+	static async addSchool(newSchool) {
+		try {
+			return await database.School.create(newSchool);
+		} catch (error) {
+			throw error;
+		}
+	}
 
-	// static async updateSchool(id, updateSchool) {
-	// 	try {
-	// 		const schoolToUpdate = await database.School.findOne({
-	// 			where: { id: Number(id) }
-	// 		});
+	static async updateSchool(id, updateSchool) {
+		try {
+			const schoolToUpdate = await database.School.findOne({
+				where: { id: Number(id) }
+			});
 
-	// 		if (schoolToUpdate) {
-	// 			await database.School.update(updateSchool, { where: { id: Number(id) } });
+			if (schoolToUpdate) {
+				await database.School.update(updateSchool, { where: { id: Number(id) } });
 
-	// 			return updateSchool;
-	// 		}
-	// 		return null;
-	// 	} catch (error) {
-	// 		throw error;
-	// 	}
-	// }
+				return updateSchool;
+			}
+			return null;
+		} catch (error) {
+			throw error;
+		}
+	}
 
 	static async getSchool(id) {
 		try {

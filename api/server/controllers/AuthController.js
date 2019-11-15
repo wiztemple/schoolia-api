@@ -69,4 +69,8 @@ class AuthController {
 	}
 }
 
+// Note
+// get user profile
+// edit user profile
+
 export default AuthController;

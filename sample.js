@@ -37,6 +37,37 @@ const users = [
 	{
 		firstname: '',
 		school: 'Federal University of Technology, Owerri',
-		type: 'admin'
+		role: 'admin'
+	}
+];
+
+const faculties = [
+	{
+		id: 1,
+		name: 'school of management technology, SMAT',
+		department: [ 'Information Technology' ],
+		dean: '',
+		schoolId: 1
+	}
+];
+
+const departments = [
+	{
+		id: 1,
+		name: 'Information Management Technology',
+		faculty: 'SMAT',
+		hod: 'Amaobi Uwaleke',
+		accredited: true,
+		utme_cut_off: 234,
+		facultyId: 1
+	}
+];
+
+const comments = [
+	{
+		id: 1,
+		schoolId: 1,
+		body: 'lets get it started',
+		author: 'wiz'
 	}
 ];

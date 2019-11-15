@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 
 dotenv.config();
 
@@ -18,7 +18,6 @@ module.exports = {
 		dialect: 'postgres',
 		secret: process.env.SECRET_KEY
 	},
-
 	test: {
 		database: 'schoolia-test-db',
 		username: 'postgres',
@@ -26,7 +25,6 @@ module.exports = {
 		host: '127.0.0.1',
 		dialect: 'postgres'
 	},
-
 	production: {
 		database: process.env.DB_NAME,
 		username: process.env.DB_USER,

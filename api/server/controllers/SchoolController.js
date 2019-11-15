@@ -1,7 +1,71 @@
 import SchoolService from '../services/SchoolService';
+import slugify from '../utils/slugify';
 
 class SchoolController {
+	static async addSchool(request, response) {
+		try {
+			const {
+				name,
+				mission,
+				motto,
+				type,
+				institution_type,
+				description,
+				nickname,
+				established,
+				founder,
+				pmb,
+				email,
+				telephone,
+				location,
+				state,
+				longitude,
+				latitude,
+				mascot,
+				colors,
+				logo,
+				website,
+				campus,
+				school_head,
+				school_photos
+			} = request.body;
+			const newSchool = await SchoolService.addSchool({
+				slug: slugify(`${name} ${Date.now()}`),
+				userid: request.userId,
+				name,
+				mission,
+				motto,
+				type,
+				institution_type,
+				description,
+				nickname,
+				established,
+				founder,
+				pmb,
+				email,
+				telephone,
+				location,
+				state,
+				longitude,
+				latitude,
+				mascot,
+				colors,
+				logo,
+				website,
+				campus,
+				school_head,
+				school_photos
+			});
+			return response.status(201).json({
+				message: 'School successfully created',
+				newSchool
+			});
+		} catch (error) {
+			console.error(error);
+		}
+	}
 	static async getAllSchools(request, response) {
+		console.log(request.query);
 		try {
 			const limit = parseInt(request.query.limit, 5) || 5;
 			const page = parseInt(request.query.page, 5) || 1;
@@ -44,5 +108,17 @@ class SchoolController {
 			console.log(error);
 		}
 	}
+
+	static async searchSchools(request, response) {
+		try {
+			const whereObj = {};
+			whereObj[params.searchField] = params.seachTerm;
+
+			const result = schools.findAll({ where: whereObj });
+		} catch (error) {
+			console.log(error);
+		}
+	}
 }
+
 export default SchoolController;

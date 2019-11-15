@@ -1,0 +1,40 @@
+{
+	"message": "school successfully retrieved",
+	"school": {
+		"id": 1,
+		"slug": "federal-university-of-technology-owerri-1573818990638",
+		"userid": 1,
+		"name": "Federal University of Technology, Owerri",
+		"mission": "To re-engineer and re-position the Federal University of Technology to be a truly world class university through recreating, nurturing and developing uniquely promising students and exceptional staff in Science, Technology and enterprise to the benefit of our globalized world.",
+		"motto": "Technology for service",
+		"nickname": "FUTO",
+		"established": "1980",
+		"founder": "Federal Government",
+		"campus": "Urban",
+		"description": "The Federal University of Owerri is the Oldest University of Technology in Nigeria and was established in 1980 by Executive fiat with the composition and appointment of the first provisional Council by Nigeria’s First Executive President, Shehu Shagari. It became the first of three such Universities set up by the Federal Government of Nigeria who sought to establish a University of Technology in each geo-political region and particularly in a State which did not have a conventional University",
+		"website": "www.futo.edu.ng",
+		"logo": "https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+		"location": "Owerri",
+		"state": "Imo",
+		"country": "Nigeria",
+		"mascot": "Oil Rig",
+		"colors": "Green and Yellow",
+		"email": "info@futo.edu.ng",
+		"telephone": "+(234) 000 0000",
+		"pmb": 1526,
+		"school_photos": [
+			"https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+		],
+		"createdAt": "2019-11-15T11:56:30.641Z",
+		"updatedAt": "2019-11-15T11:56:30.641Z",
+		"comments": null,
+		"likes": 0,
+		"views": 0,
+		"latitude": 10.08,
+		"longitude": 8.9999,
+		"school_head": "Professor Francis Chukwuemeka Eze",
+		"type": "federal",
+		"institution_type": "university",
+		"isDeleted": false
+	}
+}
