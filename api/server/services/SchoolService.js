@@ -2,11 +2,19 @@ import database from '../src/models';
 import paginationMeta from '../utils/paginationMeta';
 
 class SchoolService {
-	static async getAllSchools(limit = 5, page = 1) {
+	static async getAllSchools(limit = 5, page = 1, institution_type, type) {
 		const offset = limit * (page - 1);
+		const whereObj = {};
+		if (institution_type) {
+			whereObj.institution_type = institution_type;
+		}
+		if (type) {
+			whereObj.type = type;
+		}
 		const schoolRecords = await database.School.findAndCountAll({
 			limit,
 			offset,
+			where: whereObj,
 			order: [ [ 'createdAt', 'DESC' ] ]
 		});
 		schoolRecords.meta = paginationMeta(limit, page, schoolRecords.count);
@@ -65,20 +73,37 @@ class SchoolService {
 		return school;
 	}
 
-	// static async deleteSchool(id) {
-	// 	try {
-	// 		const schoolToDelete = await database.School.findOne({ where: { id: Number(id) } });
+	/**
+   * Function to update a school in the database
+   * @param {object} newData object
+   * @param {object} id number
+   * @returns {object} school object
+   */
+	static async updateSchool(newData, id) {
+		const updatedSchool = await School.update(newData, {
+			returning: true,
+			where: {
+				id
+			}
+		});
+		return updatedSchool[1][0];
+	}
 
-	// 		if (schoolToDelete) {
-	// 			const deletedSchool = await database.School.destroy({
-	// 				where: { id: Number(id) }
-	// 			});
-	// 			return deletedSchool;
-	// 		}
-	// 		return null;
-	// 	} catch (error) {
-	// 		throw error;
-	// 	}
-	// }
+	/** 
+* Function to delete a school from the database
+* @param {object} school
+* @returns {Object | null} User object or null
+*/
+
+	static async deleteSchool(school) {
+		const schoolRecord = await this.getSchoolBySlug(school.slug);
+		if (!schoolRecord) {
+			return null;
+		}
+		await schoolRecord.update({
+			isDeleted: true
+		});
+	}
 }
+
 export default SchoolService;

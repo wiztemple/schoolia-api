@@ -7,7 +7,7 @@ const router = Router();
 router.get('/schools', SchoolController.getAllSchools);
 router.post('/school', isAuthenticated, SchoolController.addSchool);
 router.get('/schools/:slug', SchoolController.getSchool);
-// router.put('/:id', BookController.updatedBook);
+router.put('/schools/:slug', isAuthenticated, SchoolController.updateSchool);
 // router.delete('/:id', BookController.deleteBook);
 
 export default router;

@@ -117,8 +117,6 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{}
 	);
-	School.associate = function(models) {
-		// associations can be defined here
-	};
+	School.associate = function(models) {};
 	return School;
 };
