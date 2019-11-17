@@ -12,12 +12,12 @@ module.exports = {
 				type: Sequelize.STRING,
 				allowNull: false
 			},
-			userid: {
-				type: Sequelize.INTEGER,
-				allowNull: false
-			},
 			name: {
 				type: Sequelize.STRING,
+				allowNull: false
+			},
+			userid: {
+				type: Sequelize.INTEGER,
 				allowNull: false
 			},
 			mission: {
@@ -28,9 +28,9 @@ module.exports = {
 				type: Sequelize.STRING,
 				allowNull: true
 			},
-			nickname: {
+			alias: {
 				type: Sequelize.STRING,
-				allowNull: true
+				allowNull: false
 			},
 			established: {
 				type: Sequelize.STRING,
@@ -42,19 +42,27 @@ module.exports = {
 			},
 			campus: {
 				type: Sequelize.STRING,
-				allowNull: true
+				allowNull: false
 			},
 			description: {
 				type: Sequelize.TEXT,
-				allowNull: false
+				allowNull: true
+			},
+			history: {
+				type: Sequelize.TEXT,
+				allowNull: true
+			},
+			catchment_areas: {
+				type: Sequelize.ARRAY(Sequelize.STRING),
+				allowNull: true
 			},
 			website: {
 				type: Sequelize.STRING,
-				allowNull: false
+				allowNull: true
 			},
 			logo: {
 				type: Sequelize.STRING,
-				allowNull: false
+				allowNull: true
 			},
 			location: {
 				type: Sequelize.STRING,
@@ -78,34 +86,45 @@ module.exports = {
 			},
 			email: {
 				type: Sequelize.STRING,
-				allowNull: false
+				allowNull: true
 			},
 			telephone: {
 				type: Sequelize.STRING,
-				allowNull: false
+				allowNull: true
 			},
 			pmb: {
 				type: Sequelize.INTEGER,
-				allowNull: false
+				allowNull: true
 			},
 			school_photos: {
 				type: Sequelize.ARRAY(Sequelize.STRING),
 				allowNull: true
 			},
-			comments: {
+			commentCount: {
+				type: Sequelize.INTEGER,
+				allowNull: true
+			},
+			likeCount: {
+				type: Sequelize.INTEGER,
+				allowNull: true
+			},
+			viewCount: {
+				allowNull: true,
 				type: Sequelize.INTEGER
 			},
-			likes: {
-				type: Sequelize.INTEGER
+			type: {
+				type: Sequelize.ENUM('federal', 'state', 'private'),
+				allowNull: false
 			},
-			views: {
-				type: Sequelize.INTEGER
+			category: {
+				type: Sequelize.ENUM('university', 'polytechnic', 'college', 'monotechnic', 'others'),
+				allowNull: false
 			},
-			latitude: {
+			longitude: {
 				type: Sequelize.FLOAT,
 				allowNull: true
 			},
-			longitude: {
+			latitude: {
 				type: Sequelize.FLOAT,
 				allowNull: true
 			},
@@ -113,13 +132,21 @@ module.exports = {
 				type: Sequelize.STRING,
 				allowNull: true
 			},
-			type: {
-				type: Sequelize.ENUM('federal', 'state', 'private'),
-				allowNull: false
+			updatedAt: {
+				type: Sequelize.DATE,
+				allowNull: true
 			},
-			institution_type: {
-				type: Sequelize.ENUM('university', 'polytechnic', 'college', 'monotechnic', 'others'),
-				allowNull: false
+			createdAt: {
+				type: Sequelize.DATE,
+				allowNull: true
+			},
+			isDeleted: {
+				type: Sequelize.BOOLEAN,
+				allowNull: true
+			},
+			facultyCount: {
+				type: Sequelize.INTEGER,
+				allowNull: true
 			},
 			createdAt: {
 				allowNull: false,
@@ -128,14 +155,10 @@ module.exports = {
 			updatedAt: {
 				allowNull: false,
 				type: Sequelize.DATE
-			},
-			isDeleted: {
-				allowNull: false,
-				type: Sequelize.BOOLEAN
 			}
 		});
 	},
-	down: (queryInterface) => {
+	down: (queryInterface, Sequelize) => {
 		return queryInterface.dropTable('Schools');
 	}
 };

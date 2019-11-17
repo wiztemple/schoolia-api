@@ -2,11 +2,11 @@ import database from '../src/models';
 import paginationMeta from '../utils/paginationMeta';
 
 class SchoolService {
-	static async getAllSchools(limit = 5, page = 1, institution_type, type) {
+	static async getAllSchools(limit = 5, page = 1, category, type) {
 		const offset = limit * (page - 1);
 		const whereObj = {};
-		if (institution_type) {
-			whereObj.institution_type = institution_type;
+		if (category) {
+			whereObj.category = category;
 		}
 		if (type) {
 			whereObj.type = type;
@@ -36,7 +36,6 @@ class SchoolService {
 
 			if (schoolToUpdate) {
 				await database.School.update(updateSchool, { where: { id: Number(id) } });
-
 				return updateSchool;
 			}
 			return null;
@@ -58,13 +57,29 @@ class SchoolService {
 	}
 
 	/**
-* Finds an article by slug supplied
+* Finds an school by slug supplied
 * @param {string} slug Slug value
-* @returns {object | null} Article object or null if article is not found
+* @returns {object | null} School object or null if school is not found
 */
 	static async getSchoolBySlug(slug) {
 		const school = await database.School.findOne({
 			where: { slug }
+		});
+
+		if (!school) {
+			return null;
+		}
+		return school;
+	}
+
+	/**
+* Finds an school by id supplied
+* @param {string} id ID value
+* @returns {object | null} School object or null if school is not found
+*/
+	static async getSchoolById(id) {
+		const school = await database.School.findOne({
+			where: { id: Number(id) }
 		});
 
 		if (!school) {
@@ -79,14 +94,21 @@ class SchoolService {
    * @param {object} id number
    * @returns {object} school object
    */
-	static async updateSchool(newData, id) {
-		const updatedSchool = await School.update(newData, {
-			returning: true,
-			where: {
-				id
+	static async updateSchool(slug, updateSchool) {
+		try {
+			const schoolToUpdate = await database.School.findOne({
+				where: { slug: slug }
+			});
+
+			if (schoolToUpdate) {
+				await database.School.update(updateSchool, { where: { slug: slug } });
+
+				return updateSchool;
 			}
-		});
-		return updatedSchool[1][0];
+			return null;
+		} catch (error) {
+			throw error;
+		}
 	}
 
 	/** 

@@ -45,6 +45,7 @@ const faculties = [
 	{
 		id: 1,
 		name: 'school of management technology, SMAT',
+		departmentCounts: 0,
 		department: [ 'Information Technology' ],
 		dean: '',
 		schoolId: 1

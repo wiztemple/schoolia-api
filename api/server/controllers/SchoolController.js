@@ -9,7 +9,7 @@ class SchoolController {
 				mission,
 				motto,
 				type,
-				institution_type,
+				category,
 				description,
 				nickname,
 				established,
@@ -36,7 +36,7 @@ class SchoolController {
 				mission,
 				motto,
 				type,
-				institution_type,
+				category,
 				description,
 				nickname,
 				established,
@@ -69,28 +69,35 @@ class SchoolController {
 		try {
 			const limit = parseInt(request.query.limit, 5) || 5;
 			const page = parseInt(request.query.page, 5) || 1;
-			const category = request.query.institution_type;
+			const category = request.query.category;
 			const type = request.query.type;
-			
-			if (category && ["university", "polytechnic", "college", "monotechnic", "others"].indexOf(category) == -1) {
+
+			if (
+				category &&
+				[ 'university', 'polytechnic', 'college', 'monotechnic', 'others' ].indexOf(category) == -1
+			) {
 				return response.status(400).json({
-					message: 'bad params'
-				})
+					message: 'the parameter supplied is invalid'
+				});
 			}
-			if (type && ["federal", "state", "private"].indexOf(type) == -1) {
+			if (type && [ 'federal', 'state', 'private' ].indexOf(type) == -1) {
 				return response.status(400).json({
-					message: 'bad params'
-				})
+					message: 'the parameter supplied is invalid'
+				});
 			}
-			const schools = await SchoolService.getAllSchools(limit, page,category,type);
-			if (!schools || schools.rows.length <= 0) { 
+			const schools = await SchoolService.getAllSchools(limit, page, category, type);
+			if (!schools || schools.rows.length <= 0) {
 				return response.status(200).json({
 					message: 'no school found'
 				});
 			}
+			const { rows, ...data } = schools;
 			return response.status(200).json({
 				message: 'schools successfully retrieved',
-				schools
+				data: {
+					schools: rows,
+					...data
+				}
 			});
 		} catch (error) {
 			console.log(error);
@@ -109,7 +116,7 @@ class SchoolController {
 			const school = await SchoolService.getSchoolBySlug(schoolSlug);
 
 			// increment views based on how many times this endpoint is fired
-			school.views = school.views + 1;
+			school.viewCount = school.viewCount++ + 1;
 			school.save();
 
 			if (!school) {
@@ -125,18 +132,8 @@ class SchoolController {
 			console.log(error);
 		}
 	}
-	/**
-   * Update an article
-   * @param {object} request Request Object
-   * @param {object} response Response Object
-   * @returns {object} User Object
-   */
+
 	static async updateSchool(request, response) {
-		const { school, userId, id } = request;
-		console.log(userId, 'userId')
-		console.log(request.school, 'schoola');
-		console.log(school)
-		const { userid } = school;
 		const {
 			name,
 			mission,
@@ -162,42 +159,125 @@ class SchoolController {
 			school_head,
 			school_photos
 		} = request.body;
-		if (userid === userId && request.role === 'admin') {
-			await SchoolService.updateSchool({
-				name,
-				mission,
-				motto,
-				type,
-				institution_type,
-				description,
-				nickname,
-				established,
-				founder,
-				pmb,
-				email,
-				telephone,
-				location,
-				state,
-				longitude,
-				latitude,
-				mascot,
-				colors,
-				logo,
-				website,
-				campus,
-				school_head,
-				school_photos: school_photos ? school_photos.split(',') : [],
-			},
-				id
-			);
-			return response.status(201).json({
-				message: "school successfully deleted"
-			})
+		const schoolSlug = request.params.slug;
+		const userid = request.userId;
+		if (!schoolSlug) {
+			return response.status(400).json({
+				message: 'no school with the supplied slug found'
+			});
 		}
-		return response.status(401).json({
-			message: "you cannot delete this school"
-		})
+		try {
+			if (request.userId === userid) {
+				const updatedSchool = await SchoolService.updateSchool(schoolSlug, {
+					name,
+					mission,
+					motto,
+					type,
+					institution_type,
+					description,
+					nickname,
+					established,
+					founder,
+					pmb,
+					email,
+					telephone,
+					location,
+					state,
+					longitude,
+					latitude,
+					mascot,
+					colors,
+					logo,
+					website,
+					campus,
+					school_head,
+					school_photos
+				});
+				return response.status(201).json({
+					message: 'school successfully updated',
+					updatedSchool
+				});
+			}
+			return response.status(403).json({
+				message: 'you are not authorized to update a school you didnt create'
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	}
+	/**
+   * Update an article
+   * @param {object} request Request Object
+   * @param {object} response Response Object
+   * @returns {object} User Object
+   */
+	// static async updateSchool(request, response) {
+	// 	const { school, userId, id } = request;
+	// 	console.log(userId, 'userId')
+	// 	console.log(request.school, 'schoola');
+	// 	console.log(school)
+	// 	const { userid } = school;
+	// 	const {
+	// 		name,
+	// 		mission,
+	// 		motto,
+	// 		type,
+	// 		institution_type,
+	// 		description,
+	// 		nickname,
+	// 		established,
+	// 		founder,
+	// 		pmb,
+	// 		email,
+	// 		telephone,
+	// 		location,
+	// 		state,
+	// 		longitude,
+	// 		latitude,
+	// 		mascot,
+	// 		colors,
+	// 		logo,
+	// 		website,
+	// 		campus,
+	// 		school_head,
+	// 		school_photos
+	// 	} = request.body;
+	// 	if (userid === userId && request.role === 'admin') {
+	// 		await SchoolService.updateSchool({
+	// 			name,
+	// 			mission,
+	// 			motto,
+	// 			type,
+	// 			institution_type,
+	// 			description,
+	// 			nickname,
+	// 			established,
+	// 			founder,
+	// 			pmb,
+	// 			email,
+	// 			telephone,
+	// 			location,
+	// 			state,
+	// 			longitude,
+	// 			latitude,
+	// 			mascot,
+	// 			colors,
+	// 			logo,
+	// 			website,
+	// 			campus,
+	// 			school_head,
+	// 			school_photos: school_photos ? school_photos.split(',') : [],
+	// 		},
+	// 			id
+	// 		);
+	// 		return response.status(201).json({
+	// 			message: "school successfully deleted"
+	// 		})
+	// 	}
+	// 	return response.status(401).json({
+	// 		message: "you cannot delete this school"
+	// 	})
+	// }
 	/**
  *
  * @param {object} request Request Object
@@ -210,12 +290,12 @@ class SchoolController {
 		if (userid === userId && request.role === 'admin') {
 			await SchoolService.deleteSchool(school.dataValues);
 			return response.status(201).json({
-				message: "school successfully deleted"
-			})
+				message: 'school successfully deleted'
+			});
 		}
 		return response.status(401).json({
-			message: "you cannot delete this school"
-		})
+			message: 'you cannot delete this school'
+		});
 	}
 	static async searchSchools(request, response) {
 		try {
