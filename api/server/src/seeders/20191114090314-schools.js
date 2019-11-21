@@ -1,6 +1,6 @@
-import schools from '../seedData/schools.data';
+const schools = require('../seedData/schools.data');
 
-export default {
+module.exports = {
 	up: (queryInterface) => queryInterface.bulkInsert('Schools', schools, {}),
 	down: (queryInterface) => queryInterface.bulkDelete('Schools', null, {})
 };

@@ -11,11 +11,12 @@ class SchoolController {
 				type,
 				category,
 				description,
-				nickname,
+				alias,
 				established,
 				founder,
 				pmb,
 				email,
+				history,
 				telephone,
 				location,
 				state,
@@ -27,7 +28,8 @@ class SchoolController {
 				website,
 				campus,
 				school_head,
-				school_photos
+				school_photos,
+				catchment_areas
 			} = request.body;
 			const newSchool = await SchoolService.addSchool({
 				slug: slugify(`${name} ${Date.now()}`),
@@ -38,11 +40,12 @@ class SchoolController {
 				type,
 				category,
 				description,
-				nickname,
+				alias,
 				established,
 				founder,
 				pmb,
 				email,
+				history,
 				telephone,
 				location,
 				state,
@@ -54,7 +57,8 @@ class SchoolController {
 				website,
 				campus,
 				school_head,
-				school_photos
+				school_photos,
+				catchment_areas
 			});
 			return response.status(201).json({
 				message: 'School successfully created',
@@ -134,31 +138,7 @@ class SchoolController {
 	}
 
 	static async updateSchool(request, response) {
-		const {
-			name,
-			mission,
-			motto,
-			type,
-			institution_type,
-			description,
-			nickname,
-			established,
-			founder,
-			pmb,
-			email,
-			telephone,
-			location,
-			state,
-			longitude,
-			latitude,
-			mascot,
-			colors,
-			logo,
-			website,
-			campus,
-			school_head,
-			school_photos
-		} = request.body;
+		const { name } = request.body;
 		const schoolSlug = request.params.slug;
 		const userid = request.userId;
 		if (!schoolSlug) {
@@ -205,79 +185,7 @@ class SchoolController {
 			console.log(error);
 		}
 	}
-	/**
-   * Update an article
-   * @param {object} request Request Object
-   * @param {object} response Response Object
-   * @returns {object} User Object
-   */
-	// static async updateSchool(request, response) {
-	// 	const { school, userId, id } = request;
-	// 	console.log(userId, 'userId')
-	// 	console.log(request.school, 'schoola');
-	// 	console.log(school)
-	// 	const { userid } = school;
-	// 	const {
-	// 		name,
-	// 		mission,
-	// 		motto,
-	// 		type,
-	// 		institution_type,
-	// 		description,
-	// 		nickname,
-	// 		established,
-	// 		founder,
-	// 		pmb,
-	// 		email,
-	// 		telephone,
-	// 		location,
-	// 		state,
-	// 		longitude,
-	// 		latitude,
-	// 		mascot,
-	// 		colors,
-	// 		logo,
-	// 		website,
-	// 		campus,
-	// 		school_head,
-	// 		school_photos
-	// 	} = request.body;
-	// 	if (userid === userId && request.role === 'admin') {
-	// 		await SchoolService.updateSchool({
-	// 			name,
-	// 			mission,
-	// 			motto,
-	// 			type,
-	// 			institution_type,
-	// 			description,
-	// 			nickname,
-	// 			established,
-	// 			founder,
-	// 			pmb,
-	// 			email,
-	// 			telephone,
-	// 			location,
-	// 			state,
-	// 			longitude,
-	// 			latitude,
-	// 			mascot,
-	// 			colors,
-	// 			logo,
-	// 			website,
-	// 			campus,
-	// 			school_head,
-	// 			school_photos: school_photos ? school_photos.split(',') : [],
-	// 		},
-	// 			id
-	// 		);
-	// 		return response.status(201).json({
-	// 			message: "school successfully deleted"
-	// 		})
-	// 	}
-	// 	return response.status(401).json({
-	// 		message: "you cannot delete this school"
-	// 	})
-	// }
+
 	/**
  *
  * @param {object} request Request Object

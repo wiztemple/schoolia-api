@@ -1,5 +1,5 @@
 {
-	"alvan": {
+	"abu": {
 		"name": "Ahmadu Bello University, (ABU)",
 		"mission": "To promote the development of the total person through teaching, training and research for a positive change in the society",
 		"motto": "That Knowledge and Wisdom may flourish",
@@ -26,6 +26,60 @@
 		"school_photos": [
 			"https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
 		],
+		"catchment_areas": [
+			"ADAMAWA",
+			"BAUCHI",
+			"BENUE",
+			"BORNO",
+			"GOMBE",
+			"JIGAWA",
+			"KADUNA",
+			"KANO",
+			"KATSINA",
+			"KEBBI",
+			"KOGI",
+			"KWARA",
+			"NASARAWA",
+			"NIGER",
+			"PLATEAU",
+			"SOKOTO",
+			"TARABA",
+			"YOBE",
+			"ZAMFARA"
+		]
+	},
+	"ui": {
+		"name": "University Of Ibadan, (UI)",
+		"mission": "To promote the development of the total person through teaching, training and research for a positive change in the society",
+		"motto": "That Knowledge and Wisdom may flourish",
+		"type": "federal",
+		"category": "university",
+		"description": "Ahmadu Bello University (ABU) is a federal government research university located in Zaria, Kaduna State. ABU was founded on October 4, 1962, as the University of Northern Nigeria.",
+		"history": "Ahmadu Bello University (ABU) is a federal government research university located in Zaria, Kaduna State. ABU was founded on October 4, 1962, as the University of Northern Nigeria. The university operates three main campuses: Samaru and Kongo in Zaria, and School of Basic Studies in Funtua. The Samaru campus houses the administrative offices, sciences, social-sciences, arts and languages, education, environmental design, engineering, medical sciences agricultural sciences and research facilities. The Kongo campus hosts the Faculties of Law and Administration. The Faculty of Administration consists of Accounting, Business Administration, Local Government and Development Studies and Public Administration Departments. Additionally, the university is responsible for a variety of other institutions and programs at other locations. The university is named after the Sardauna of Sokoto, Alhaji Sir Ahmadu Bello, the first premier of Northern Nigeria. The university runs a wide variety of undergraduate and graduate programs (and offers associate degrees and vocational and remedial programs). The university has a large medical program with its own A.B.U. Teaching Hospital, one of the largest teaching hospitals in Nigeria and Africa.",
+		"alias": "ABU",
+		"established": "1962",
+		"founder": "Sir Ahmadu Bello",
+		"pmb": 5323,
+		"telephone": "069-550811",
+		"email": "helpdesk@abu.edu.ng",
+		"location": "Zaria",
+		"state": "Kaduna",
+		"longitude": 8.9999,
+		"latitude": 7.08,
+		"mascot": "olympic torch",
+		"colors": "Purple, white and orange",
+		"logo": "https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+		"website": "https://www.alvanikoku.edu.ng/",
+		"campus": "Urban",
+		"school_head": "Professor Ibrahim Garba",
+		"school_photos": [
+			"https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+		],
+		"requirements": [
+			"(a). University of Ibadan require all candidates applying for admission into any of its courses to possess at least Five (5) SSCE credit passes at one sitting including English Language and Mathematics except when stated otherwise.",
+			"(b). University of Ibadan requires a credit pass in Mathematics for all Science Based courses."
+		],
+		"direct_entry": "",
 		"catchment_areas": [
 			"ADAMAWA",
 			"BAUCHI",
