@@ -9,7 +9,7 @@
 	"author": "wiztemple <wiztemple@gmail.com>",
 	"license": "MIT",
 	"scripts": {
-		"start": "node build/app.js",
+		"start": "node ./build/app.js",
 		"dev": "nodemon --exec babel-node ./api/app.js",
 		"db:migrate": "sequelize db:migrate",
 		"db-migrate:undo": "sequelize db:migrate:undo:all",
