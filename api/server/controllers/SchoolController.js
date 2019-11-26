@@ -31,6 +31,7 @@ class SchoolController {
 				school_photos,
 				catchment_areas
 			} = request.body;
+			school_photos.push('');
 			const newSchool = await SchoolService.addSchool({
 				slug: slugify(`${name} ${Date.now()}`),
 				userid: request.userId,
@@ -137,82 +138,58 @@ class SchoolController {
 		}
 	}
 
+	/**
+* Get a single article
+* @param {object} request Request Object
+* @param {object} response Response Object
+* @returns {object} Article object or error object if article is not found
+*/
+
 	static async updateSchool(request, response) {
-		const { name } = request.body;
-		const schoolSlug = request.params.slug;
-		const userid = request.userId;
-		if (!schoolSlug) {
-			return response.status(400).json({
-				message: 'no school with the supplied slug found'
-			});
-		}
 		try {
-			if (request.userId === userid) {
-				const updatedSchool = await SchoolService.updateSchool(schoolSlug, {
-					name,
-					mission,
-					motto,
-					type,
-					institution_type,
-					description,
-					nickname,
-					established,
-					founder,
-					pmb,
-					email,
-					telephone,
-					location,
-					state,
-					longitude,
-					latitude,
-					mascot,
-					colors,
-					logo,
-					website,
-					campus,
-					school_head,
-					school_photos
-				});
-				return response.status(201).json({
-					message: 'school successfully updated',
+			const schoolSlug = request.params.slug;
+			const school = await SchoolService.getSchoolBySlug(schoolSlug);
+			const schoolUpdateFields = {
+				// userid: request.userId,
+				name: request.body.name,
+				mission: request.body.mission,
+				motto: request.body.motto,
+				type: request.body.type,
+				category: request.body.category,
+				description: request.body.description,
+				alias: request.body.alias,
+				established: request.body.established,
+				founder: request.body.founder,
+				pmb: request.body.pmb,
+				email: request.body.email,
+				history: request.body.history,
+				telephone: request.body.telephone,
+				location: request.body.location,
+				state: request.body.state,
+				longitude: request.body.longitude,
+				latitude: request.body.latitude,
+				mascot: request.body.mascot,
+				colors: request.body.colors,
+				logo: request.body.logo,
+				website: request.body.website,
+				campus: request.body.campus,
+				school_head: request.body.school_head,
+				school_photos: request.body.school_photos,
+				catchment_areas: request.body.catchment_areas
+			};
+			if (school) {
+				const updatedSchool = await SchoolService.updateSchool(schoolUpdateFields);
+				return response.status(200).json({
+					message: 'School was successfully updated',
 					updatedSchool
 				});
+			} else {
+				return response.status(404).json({
+					message: 'School Not Found'
+				});
 			}
-			return response.status(403).json({
-				message: 'you are not authorized to update a school you didnt create'
-			});
 		} catch (error) {
-			console.log(error);
-		}
-	}
-
-	/**
- *
- * @param {object} request Request Object
- * @param {object} response Response Object
- * @returns {object} response
- */
-	static async deleteSchool(request, response) {
-		const { school, userId } = request;
-		const { userid } = school.dataValues;
-		if (userid === userId && request.role === 'admin') {
-			await SchoolService.deleteSchool(school.dataValues);
-			return response.status(201).json({
-				message: 'school successfully deleted'
-			});
-		}
-		return response.status(401).json({
-			message: 'you cannot delete this school'
-		});
-	}
-	static async searchSchools(request, response) {
-		try {
-			const whereObj = {};
-			whereObj[params.searchField] = params.seachTerm;
-
-			const result = schools.findAll({ where: whereObj });
-		} catch (error) {
-			console.log(error);
+			console.log(error.message);
 		}
 	}
 }
