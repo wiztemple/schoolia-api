@@ -1,41 +1,35 @@
 {
-	"name": "schoolia-api",
-	"version": "1.0.0",
-	"engines": {
-		"node": "12.4.0"
-	},
-	"main": "index.js",
-	"repository": "https://github.com/wiztemple/schoolia-api.git",
-	"author": "wiztemple <wiztemple@gmail.com>",
-	"license": "MIT",
-	"scripts": {
-		"start": "node ./build/app.js",
-		"dev": "nodemon --exec babel-node ./api/app.js",
-		"db:migrate": "sequelize db:migrate",
-		"db-migrate:undo": "sequelize db:migrate:undo:all",
-		"build": "babel ./api -d ./build"
-	},
-	"dependencies": {
-		"bcryptjs": "^2.4.3",
-		"cors": "^2.8.5",
-		"dotenv": "^8.2.0",
-		"express": "^4.17.1",
-		"jsonwebtoken": "^8.5.1",
-		"pg": "^7.12.1",
-		"pg-hstore": "^2.3.3",
-		"sequelize": "^5.21.2",
-		"@babel/cli": "^7.7.0",
-		"@babel/core": "^7.7.2",
-		"@babel/node": "^7.7.0",
-		"@babel/plugin-transform-runtime": "^7.6.2",
-		"@babel/preset-env": "^7.7.1",
-		"@babel/register": "^7.7.0",
-		"@babel/runtime": "^7.7.2",
-		"babel-loader": "^8.0.6",
-		"volleyball": "^1.5.1"
-	},
-	"devDependencies": {
-		"eslint-config-airbnb-base": "^14.0.0",
-		"eslint-plugin-import": "^2.18.2"
-	}
+  "name": "schoolia-api",
+  "version": "1.0.0",
+  "description": "An api service to get  all schools details in Nigeria",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node ./src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wiztemple/schoolia-api.git"
+  },
+  "keywords": [
+    "Nodejs"
+  ],
+  "author": "Sullivan Wisdom",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wiztemple/schoolia-api/issues"
+  },
+  "homepage": "https://github.com/wiztemple/schoolia-api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "volleyball": "^1.5.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.15",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.13.15",
+    "nodemon": "^2.0.7"
+  }
 }
